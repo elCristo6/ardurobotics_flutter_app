@@ -31,4 +31,10 @@ jobs:
           AWS_REGION: ${{ secrets.AWS_REGION }}
           AWS_S3_BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME }}
         run: |
+          echo "Bucket destino: $AWS_S3_BUCKET_NAME"
+          echo "Archivos generados:"
+          ls -lah build/web
+          echo "Subiendo archivos..."
           aws s3 sync build/web "s3://$AWS_S3_BUCKET_NAME/" --delete
+          echo "Contenido del bucket después del deploy:"
+          aws s3 ls "s3://$AWS_S3_BUCKET_NAME/"
