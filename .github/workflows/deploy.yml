@@ -35,6 +35,6 @@ jobs:
           echo "Archivos generados:"
           ls -lah build/web
           echo "Subiendo archivos..."
-          aws s3 sync build/web "s3://$AWS_S3_BUCKET_NAME/" --delete
+          aws s3 sync build/web "s3://$AWS_S3_BUCKET_NAME/" 
           echo "Contenido del bucket después del deploy:"
           aws s3 ls "s3://$AWS_S3_BUCKET_NAME/"
