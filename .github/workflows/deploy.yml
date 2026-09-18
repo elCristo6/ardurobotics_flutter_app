@@ -24,17 +24,13 @@ jobs:
       - name: Compilar Flutter Web
         run: flutter build web --release
 
-      - name: Desplegar en S3
+      - name: Desplegar Ardurobotics en S3
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          AWS_S3_BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME }}
+          AWS_REGION: us-east-1
         run: |
-          echo "Bucket destino: $AWS_S3_BUCKET_NAME"
-          echo "Archivos generados:"
-          ls -lah build/web
-          echo "Subiendo archivos..."
-          aws s3 sync build/web "s3://$AWS_S3_BUCKET_NAME/" 
-          echo "Contenido del bucket después del deploy:"
-          aws s3 ls "s3://$AWS_S3_BUCKET_NAME/"
+          echo "Desplegando exclusivamente en Ardurobotics..."
+          aws s3 sync build/web s3://ardurobotics.udelectronics.com/
+          echo "Contenido del bucket Ardurobotics:"
+          aws s3 ls s3://ardurobotics.udelectronics.com/
